@@ -1,0 +1,65 @@
+# Load required libraries
+library(raster)
+library(corrplot)
+library(ggcorrplot)
+library(randomForest)
+library(magrittr)
+library(dplyr)
+library(knitr)
+library (ranger)
+library(ggplot2)
+
+# Read CSV files for each index
+ndvi <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/ndvi.csv")
+mbi <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/mbi.csv")
+dbsi <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/dbsi.csv")
+ndbal <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/ndbal.csv")
+nbr2 <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/nbr2.csv")
+b3_b2 <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/b3B2.csv")
+b2_b1 <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/b2B1.csv")
+bsi <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/bsi.csv")
+nbsi1 <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/nbsi1.csv")
+nbli <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/nbli.csv")
+mndsi <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/mndsi.csv")
+bi <- ("D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/MONTHLY INDICES/Modified CSVs/bi.csv")
+
+# List of CSV file names
+file_names <- c(ndvi, nbr2, b3_b2, b2_b1, mbi, dbsi, ndbal, bsi, nbsi1, nbli, 
+                 mndsi, bi)
+
+# Read the CSV files into a list of data frames
+data_list <- lapply(file_names, function(file) read.csv(file))
+
+
+# Extract the 'SAMPLE_1' column from each data frame
+sample_1_list <- lapply(data_list, function(data) data$mean)
+
+# Extract the 'Carbon_Stock' column from the AGB data frame
+#carbon_stock <- data_list[[14]]$carbon_stock
+
+all_data <- data.frame(
+  ndvi = sample_1_list[[1]],
+  nbr2 = sample_1_list[[2]],
+  b3_b2 = sample_1_list[[3]],
+  b2_b1 = sample_1_list[[4]],
+  mbi = sample_1_list[[5]],
+  dbsi = sample_1_list[[6]],
+  ndbal = sample_1_list[[7]],
+  bsi = sample_1_list[[8]],
+  nbsi1 = sample_1_list[[9]],
+  nbli = sample_1_list[[10]],
+  mndsi = sample_1_list[[11]],
+  bi = sample_1_list[[12]]
+  
+)
+correlation_matrix <- cor(all_data)
+
+# Display the correlation matrix
+print(correlation_matrix)
+
+# Export correlation matrix to a CSV file
+write.csv(correlation_matrix, file = "D:/GIS INFO/PETER KOPEJO - ME/FINAL PROJECT/RESULTS2/CORRELATION/correlation_matrix.csv")
+
+corrplot(correlation_matrix, method = "circle")
+# Set up the corrplot with symbols in the upper diagonal (ellipse) and correlation coefficients in the lower diagonal (numbers)
+corrplot.mixed(correlation_matrix, upper = 'ellipse', lower = 'number', number.cex = 0.8, number.color = "black", tl.col = "black")

@@ -1,0 +1,36 @@
+// Define Nyandarua county boundary
+//var nyandaruaBoundary = ee.FeatureCollection("users/username/Nyandarua_boundary");
+
+// Load Landsat 8 collection and filter by date and region of interest (Nyandarua county)
+var landsatCollection = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA')
+  .filterBounds(nyandaruaBoundary)
+  .filterDate('2013-01-01', '2023-12-31');
+
+// Function to calculate NDVI
+function addNDVI(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+}
+
+// Add NDVI band to each image
+var landsatWithNDVI = landsatCollection.map(addNDVI);
+
+// Median composite of NDVI
+var ndviMedian = landsatWithNDVI.select('NDVI').median();
+
+// Mask out non-forest areas using NDVI threshold
+var forestMask = ndviMedian.gte(0.55);
+
+// Clip the forest mask to Nyandarua county boundary
+var forestMaskClipped = forestMask.clip(nyandaruaBoundary);
+
+// Visualize the forest as green and make non-forest areas transparent
+var visualization = {
+  min: 0,
+  max: 1,
+  palette: ['000000', 'green']
+};
+
+// Display the result
+Map.centerObject(nyandaruaBoundary, 9);
+Map.addLayer(forestMaskClipped, visualization, 'Forest Mask');

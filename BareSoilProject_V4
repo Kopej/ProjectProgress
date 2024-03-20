@@ -1,0 +1,1506 @@
+var landsat8 = ee.ImageCollection("LANDSAT/LC08/C02/T1_TOA");
+
+var landsat9 = ee.ImageCollection("LANDSAT/LC09/C02/T1_TOA")
+
+var rgbVis = {
+  min: 0.0,
+  max: 0.3,
+  bands: ['B1', 'B2', 'B3'],
+};
+
+var ndviVis = {min:0, max:1, palette: ['green', 'white']};
+
+var nbr2Vis = {min:0, max:2, palette: ['red', 'white']};
+
+var b3MinusB2Vis = {min:-1, max:1, palette: ['blue', 'red']};
+
+var dbsiVis = {min:-1, max:1, palette: ['white', 'red']};
+
+var ndsi1Vis = {min:-1, max:1, palette: ['white', 'red']};
+
+
+var filtered45 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-01-01', '2013-04-30')
+  .filterBounds(geometry);
+
+var filtered = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-05-01', '2013-07-30')
+  .filterBounds(geometry);
+  
+var filtered2 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-08-01', '2013-10-30')
+  .filterBounds(geometry);
+  
+var filtered3 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-10-01', '2013-12-30')
+  .filterBounds(geometry);
+  
+var filtered34 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-01-01', '2013-12-30')
+  .filterBounds(geometry);
+
+var filtered46 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-01-01', '2014-04-30')
+  .filterBounds(geometry);
+  
+var filtered4 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-05-01', '2014-07-30')
+  .filterBounds(geometry);
+  
+var filtered5 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-08-01', '2014-10-30')
+  .filterBounds(geometry);
+  
+var filtered6 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-10-01', '2014-12-30')
+  .filterBounds(geometry);
+  
+var filtered35 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-01-01', '2014-12-30')
+  .filterBounds(geometry);
+
+var filtered47 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-01-01', '2015-04-30')
+  .filterBounds(geometry);
+  
+var filtered7 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-05-01', '2015-07-30')
+  .filterBounds(geometry);
+  
+var filtered8 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-07-01', '2015-10-30')
+  .filterBounds(geometry);
+  
+var filtered9 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-10-01', '2015-12-30')
+  .filterBounds(geometry);
+
+var filtered36 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-01-01', '2015-12-30')
+  .filterBounds(geometry);
+
+var filtered48 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-01-01', '2016-04-30')
+  .filterBounds(geometry);
+  
+var filtered10 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-05-01', '2016-07-30')
+  .filterBounds(geometry);
+  
+var filtered11 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-07-01', '2016-10-30')
+  .filterBounds(geometry);
+  
+var filtered12 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-10-01', '2016-12-30')
+  .filterBounds(geometry);
+  
+var filtered37 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-01-01', '2016-12-30')
+  .filterBounds(geometry);
+
+var filtered49 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-01-01', '2017-04-30')
+  .filterBounds(geometry);
+  
+var filtered13 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-05-01', '2017-07-30')
+  .filterBounds(geometry);
+  
+var filtered14 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-07-01', '2017-10-30')
+  .filterBounds(geometry);
+  
+var filtered15 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-10-01', '2017-12-30')
+  .filterBounds(geometry);
+  
+var filtered38 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-01-01', '2017-12-30')
+  .filterBounds(geometry);
+
+var filtered50 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-01-01', '2018-04-30')
+  .filterBounds(geometry);
+  
+var filtered16 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-05-01', '2018-07-30')
+  .filterBounds(geometry);
+  
+var filtered17 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-07-01', '2018-10-30')
+  .filterBounds(geometry);
+  
+var filtered18 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-10-01', '2018-12-30')
+  .filterBounds(geometry);
+  
+var filtered39 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-01-01', '2018-12-30')
+  .filterBounds(geometry);
+
+var filtered51 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-01-01', '2019-04-30')
+  .filterBounds(geometry);
+  
+var filtered19 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-05-01', '2019-07-30')
+  .filterBounds(geometry);
+  
+var filtered20 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-07-01', '2019-10-30')
+  .filterBounds(geometry);
+  
+var filtered21 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-10-01', '2019-12-30')
+  .filterBounds(geometry);
+  
+var filtered40 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-01-01', '2019-12-30')
+  .filterBounds(geometry);
+
+var filtered52 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-01-01', '2020-04-30')
+  .filterBounds(geometry);
+  
+var filtered22 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-05-01', '2020-07-30')
+  .filterBounds(geometry);
+  
+var filtered23 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-07-01', '2020-10-30')
+  .filterBounds(geometry);
+  
+var filtered24 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-10-01', '2020-12-30')
+  .filterBounds(geometry);
+  
+var filtered41 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-01-01', '2020-12-30')
+  .filterBounds(geometry);
+
+var filtered53 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-01-01', '2021-04-30')
+  .filterBounds(geometry);
+  
+var filtered25 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-05-01', '2021-07-30')
+  .filterBounds(geometry);
+  
+var filtered26 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-07-01', '2021-10-30')
+  .filterBounds(geometry);
+  
+var filtered27 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-10-01', '2021-12-30')
+  .filterBounds(geometry);
+  
+var filtered42 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-01-01', '2021-12-30')
+  .filterBounds(geometry);
+
+var filtered54 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-01-01', '2022-04-30')
+  .filterBounds(geometry);
+  
+var filtered28 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-05-01', '2022-07-30')
+  .filterBounds(geometry);
+  
+var filtered29 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-07-01', '2022-10-30')
+  .filterBounds(geometry);
+  
+var filtered30 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-10-01', '2022-12-30')
+  .filterBounds(geometry);
+  
+var filtered43 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-01-01', '2022-12-30')
+  .filterBounds(geometry);
+
+var filtered55 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-01-01', '2023-04-30')
+  .filterBounds(geometry);
+  
+var filtered31 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-05-01', '2023-07-30')
+  .filterBounds(geometry);
+  
+var filtered32 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-07-01', '2023-10-30')
+  .filterBounds(geometry);
+  
+var filtered33 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-10-01', '2023-12-30')
+  .filterBounds(geometry);
+  
+var filtered44 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-01-01', '2023-12-30')
+  .filterBounds(geometry);
+  
+
+  
+// Rename and print the filtered collection
+//print(filtered33)
+
+var medianComposite = filtered.median().clip(geometry);
+var medianComposite2 = filtered2.median().clip(geometry);
+var medianComposite3 = filtered3.median().clip(geometry);
+var medianComposite4 = filtered4.median().clip(geometry);
+var medianComposite5 = filtered5.median().clip(geometry);
+var medianComposite6 = filtered6.median().clip(geometry);
+var medianComposite7 = filtered7.median().clip(geometry);
+var medianComposite8 = filtered8.median().clip(geometry);
+var medianComposite9 = filtered9.median().clip(geometry);
+var medianComposite10 = filtered10.median().clip(geometry);
+var medianComposite11 = filtered11.median().clip(geometry);
+var medianComposite12 = filtered12.median().clip(geometry);
+var medianComposite13 = filtered13.median().clip(geometry);
+var medianComposite14 = filtered14.median().clip(geometry);
+var medianComposite15 = filtered15.median().clip(geometry);
+var medianComposite16 = filtered16.median().clip(geometry);
+var medianComposite17 = filtered17.median().clip(geometry);
+var medianComposite18 = filtered18.median().clip(geometry);
+var medianComposite19 = filtered19.median().clip(geometry);
+var medianComposite20 = filtered20.median().clip(geometry);
+var medianComposite21 = filtered21.median().clip(geometry);
+var medianComposite22 = filtered22.median().clip(geometry);
+var medianComposite23 = filtered23.median().clip(geometry);
+var medianComposite24 = filtered24.median().clip(geometry);
+var medianComposite25 = filtered25.median().clip(geometry);
+var medianComposite26 = filtered26.median().clip(geometry);
+var medianComposite27 = filtered27.median().clip(geometry);
+var medianComposite28 = filtered28.median().clip(geometry);
+var medianComposite29 = filtered29.median().clip(geometry);
+var medianComposite30 = filtered30.median().clip(geometry);
+var medianComposite31 = filtered31.median().clip(geometry);
+var medianComposite32 = filtered32.median().clip(geometry);
+var medianComposite33 = filtered33.median().clip(geometry);
+var medianComposite34 = filtered34.median().clip(geometry);
+var medianComposite35 = filtered35.median().clip(geometry);
+var medianComposite36 = filtered36.median().clip(geometry);
+var medianComposite37 = filtered37.median().clip(geometry);
+var medianComposite38 = filtered38.median().clip(geometry);
+var medianComposite39 = filtered39.median().clip(geometry);
+var medianComposite40 = filtered40.median().clip(geometry);
+var medianComposite41 = filtered41.median().clip(geometry);
+var medianComposite42 = filtered42.median().clip(geometry);
+var medianComposite43 = filtered43.median().clip(geometry);
+var medianComposite44 = filtered44.median().clip(geometry);
+var medianComposite45 = filtered45.median().clip(geometry);
+var medianComposite46 = filtered46.median().clip(geometry);
+var medianComposite47 = filtered47.median().clip(geometry);
+var medianComposite48 = filtered48.median().clip(geometry);
+var medianComposite49 = filtered49.median().clip(geometry);
+var medianComposite50 = filtered50.median().clip(geometry);
+var medianComposite51 = filtered51.median().clip(geometry);
+var medianComposite52 = filtered52.median().clip(geometry);
+var medianComposite53 = filtered53.median().clip(geometry);
+var medianComposite54 = filtered54.median().clip(geometry);
+var medianComposite55 = filtered55.median().clip(geometry);
+
+/*print(medianComposite34)
+print(medianComposite35)
+print(medianComposite36)
+print(medianComposite37)
+print(medianComposite38)
+print(medianComposite39)
+print(medianComposite40)
+print(medianComposite41)
+print(medianComposite42)
+print(medianComposite43)
+print(medianComposite44)*/
+
+//var medianComposite = filtered.mosaic().clip(geometry);
+//print(medianComposite)
+// Visualize the filtered images (RGB)
+/*Map.centerObject(geometry, 8); // Center the map on the geometry
+Map.addLayer(medianComposite45, rgbVis, 'Filtered Landsat Images (RGB)1');
+Map.addLayer(medianComposite46, rgbVis, 'Filtered Landsat Images (RGB)2');
+Map.addLayer(medianComposite47, rgbVis, 'Filtered Landsat Images (RGB)3');
+Map.addLayer(medianComposite48, rgbVis, 'Filtered Landsat Images (RGB)4');
+Map.addLayer(medianComposite49, rgbVis, 'Filtered Landsat Images (RGB)5');
+Map.addLayer(medianComposite50, rgbVis, 'Filtered Landsat Images (RGB)6');
+Map.addLayer(medianComposite51, rgbVis, 'Filtered Landsat Images (RGB)7');
+Map.addLayer(medianComposite52, rgbVis, 'Filtered Landsat Images (RGB)8');
+Map.addLayer(medianComposite53, rgbVis, 'Filtered Landsat Images (RGB)9');
+Map.addLayer(medianComposite54, rgbVis, 'Filtered Landsat Images (RGB)10');
+Map.addLayer(medianComposite55, rgbVis, 'Filtered Landsat Images (RGB)11');*/
+
+
+function cloudMask(image){
+  var qa = image.select('QA_PIXEL');
+    // Convert QA_PIXEL band to integer
+  qa = qa.toInt();
+  
+  var dilated = 1<<1;
+  var cirrus = 1<<2;
+  var cloud = 1<<3;
+  var shadow = 1<<4;
+  
+  var mask = qa.bitwiseAnd(dilated).eq(0)
+      .and(qa.bitwiseAnd(cirrus).eq(0))
+      .and(qa.bitwiseAnd(cloud).eq(0))
+      .and(qa.bitwiseAnd(shadow).eq(0));
+      
+  return image.updateMask(mask);
+}
+
+// Apply cloud masking function to the median composite
+var maskedComposite = cloudMask(medianComposite).blend(medianComposite34);
+var maskedComposite2 = cloudMask(medianComposite2).blend(medianComposite34);
+var maskedComposite3 = cloudMask(medianComposite3).blend(medianComposite34);
+var maskedComposite4 = cloudMask(medianComposite46).blend(medianComposite35);
+var maskedComposite5 = cloudMask(medianComposite4).blend(medianComposite35);
+var maskedComposite6 = cloudMask(medianComposite5).blend(medianComposite35);
+var maskedComposite7 = cloudMask(medianComposite6).blend(medianComposite35);
+var maskedComposite8 = cloudMask(medianComposite47).blend(medianComposite36);
+var maskedComposite9 = cloudMask(medianComposite7).blend(medianComposite36);
+var maskedComposite10 = cloudMask(medianComposite8).blend(medianComposite36);
+var maskedComposite11 = cloudMask(medianComposite9).blend(medianComposite36);
+var maskedComposite12 = cloudMask(medianComposite48).blend(medianComposite37);
+var maskedComposite13 = cloudMask(medianComposite10).blend(medianComposite37);
+var maskedComposite14 = cloudMask(medianComposite11).blend(medianComposite37);
+var maskedComposite15 = cloudMask(medianComposite12).blend(medianComposite37);
+var maskedComposite16 = cloudMask(medianComposite49).blend(medianComposite38);
+var maskedComposite17 = cloudMask(medianComposite13).blend(medianComposite38);
+var maskedComposite18 = cloudMask(medianComposite14).blend(medianComposite38);
+var maskedComposite19 = cloudMask(medianComposite15).blend(medianComposite38);
+var maskedComposite20 = cloudMask(medianComposite50).blend(medianComposite39);
+var maskedComposite21 = cloudMask(medianComposite16).blend(medianComposite39);
+var maskedComposite22 = cloudMask(medianComposite17).blend(medianComposite39);
+var maskedComposite23 = cloudMask(medianComposite18).blend(medianComposite39);
+var maskedComposite24 = cloudMask(medianComposite51).blend(medianComposite40);
+var maskedComposite25 = cloudMask(medianComposite19).blend(medianComposite40);
+var maskedComposite26 = cloudMask(medianComposite20).blend(medianComposite40);
+var maskedComposite27 = cloudMask(medianComposite21).blend(medianComposite40);
+var maskedComposite28 = cloudMask(medianComposite52).blend(medianComposite41);
+var maskedComposite29 = cloudMask(medianComposite22).blend(medianComposite41);
+var maskedComposite30 = cloudMask(medianComposite23).blend(medianComposite41);
+var maskedComposite31 = cloudMask(medianComposite24).blend(medianComposite41);
+var maskedComposite32 = cloudMask(medianComposite53).blend(medianComposite42);
+var maskedComposite33 = cloudMask(medianComposite25).blend(medianComposite42);
+var maskedComposite34 = cloudMask(medianComposite26).blend(medianComposite42);
+var maskedComposite35 = cloudMask(medianComposite27).blend(medianComposite42);
+var maskedComposite36 = cloudMask(medianComposite54).blend(medianComposite43);
+var maskedComposite37 = cloudMask(medianComposite28).blend(medianComposite43);
+var maskedComposite38 = cloudMask(medianComposite29).blend(medianComposite43);
+var maskedComposite39 = cloudMask(medianComposite30).blend(medianComposite43);
+var maskedComposite40 = cloudMask(medianComposite55).blend(medianComposite44);
+var maskedComposite41 = cloudMask(medianComposite31).blend(medianComposite44);
+var maskedComposite42 = cloudMask(medianComposite32).blend(medianComposite44);
+var maskedComposite43 = cloudMask(medianComposite33).blend(medianComposite44);
+
+
+// Function to calculate NDVI
+var addNDVI = function(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+};
+
+// Function to calculate MBI (Modified Built-up Index)
+var addMBI = function(image) {
+  var mbi = image.expression(
+    '(((B6 - B7 - B5) / (B6 + B7 + B5)) + 0.5)', {
+      'B6': image.select('B6'),   // SWIR1
+      'B7': image.select('B7'), // SWIR2
+      'B5': image.select('B5')    // NIR
+  }).rename('MBI');
+  return image.addBands(mbi);
+};
+
+
+// Function to calculate DBSI (Dry Bare Soil Index)
+var addDBSI = function(image) {
+  var dbsi = image.expression(
+    '(((B6 - B3) / (B6 + B3))-((B5-B4)/(B5-B4)))', {
+      'B6': image.select('B6'),
+      'B5': image.select('B5'),
+      'B3': image.select('B3'),
+      'B4':image.select('B4')
+  }).rename('DBSI');
+  return image.addBands(dbsi);
+};
+
+// Function to calculate NDBal (Normalized Difference Bareness Index)
+var addNDBal = function(image) {
+  var ndbal = image.expression(
+    '(B6 - B10) / (B6 + B10)', {
+      'B6': image.select('B6'),
+      'B10': image.select('B10')
+  }).rename('NDBal');
+  return image.addBands(ndbal);
+};
+
+// Function to calculate NBR2 (Normalized Burn Ratio 2)
+var addNBR2 = function(image) {
+  var nbr2 = image.normalizedDifference(['B6', 'B7']).rename('NBR2');
+  return image.addBands(nbr2);
+};
+
+// Function to calculate B3-B2
+var addB3_B2 = function(image) {
+  var b3_b2 = image.expression(
+    'B3 - B2', {
+      'B3': image.select('B3'),
+      'B2': image.select('B2')
+  }).rename('B3_B2');
+  return image.addBands(b3_b2);
+};
+
+// Function to calculate B2-B1
+var addB2_B1 = function(image) {
+  var b2_b1 = image.expression(
+    'B2 - B1', {
+      'B2': image.select('B2'),
+      'B1': image.select('B1')
+  }).rename('B2_B1');
+  return image.addBands(b2_b1);
+};
+
+// Function to calculate BSI (Bare Soil Index)
+var addBSI = function(image) {
+  var bsi = image.expression(
+    '((B11 + B4) - (B5 + B2)) / ((B11 + B4) + (B5 + B2))', {
+      'B11': image.select('B11'), // SWIR2
+      'B4': image.select('B4'),   // Red
+      'B5': image.select('B5'),   // NIR
+      'B2': image.select('B2')    // Blue
+  }).rename('BSI');
+  return image.addBands(bsi);
+};
+
+// Function to calculate NDSI1 (Normalized Difference Soil Index 1)
+var addNDSI1 = function(image) {
+  var ndsi1 = image.expression(
+    '((B6 - B5) / (B6 + B5))', {
+      'B6': image.select('B6'),   // SWIR1
+      'B5': image.select('B5')    // NIR
+  }).rename('NDSI1');
+  return image.addBands(ndsi1);
+};
+
+// Function to calculate MNDSI (Modified Normalized Difference Soil Index)
+var addMNDSI = function(image) {
+  var mndsi = image.expression(
+    '((B7 - B8) / (B7 + B8))', {
+      'B7': image.select('B7'),   // SWIR2
+      'B8': image.select('B8')  // PAN band
+  }).rename('MNDSI');
+  return image.addBands(mndsi);
+};
+
+// Function to calculate NBLI (Normalized Burnt Land Index)
+var addNBLI = function(image) {
+  var nbli = image.expression(
+    '((Red - TIR) / (Red + TIR))', {
+      'Red': image.select('B4'),   // Red band
+      'TIR': image.select('B10')   // TIR (Thermal Infrared) band
+  }).rename('NBLI');
+  return image.addBands(nbli);
+};
+
+// Function to calculate BI (Bareness Index)
+var addBI = function(image) {
+  var bi = image.expression(
+    '(Red + SWIR1 - NIR)', {
+      'Red': image.select('B4'),    // Red band
+      'SWIR1': image.select('B6'),  // SWIR1 (Shortwave Infrared 1) band
+      'NIR': image.select('B5')     // NIR (Near Infrared) band
+  }).rename('BI');
+  return image.addBands(bi);
+};
+
+//MBI INDEX
+var mbi = addMBI(maskedComposite).select('MBI');
+var mbi2 = addMBI(maskedComposite2).select('MBI');
+var mbi3 = addMBI(maskedComposite3).select('MBI');
+var mbi4 = addMBI(maskedComposite4).select('MBI');
+var mbi5 = addMBI(maskedComposite5).select('MBI');
+var mbi6 = addMBI(maskedComposite6).select('MBI');
+var mbi7 = addMBI(maskedComposite7).select('MBI');
+var mbi8 = addMBI(maskedComposite8).select('MBI');
+var mbi9 = addMBI(maskedComposite9).select('MBI');
+var mbi10 = addMBI(maskedComposite10).select('MBI');
+var mbi11 = addMBI(maskedComposite11).select('MBI');
+var mbi12 = addMBI(maskedComposite12).select('MBI');
+var mbi13 = addMBI(maskedComposite13).select('MBI');
+var mbi14 = addMBI(maskedComposite14).select('MBI');
+var mbi15 = addMBI(maskedComposite15).select('MBI');
+var mbi16 = addMBI(maskedComposite16).select('MBI');
+var mbi17 = addMBI(maskedComposite17).select('MBI');
+var mbi18 = addMBI(maskedComposite18).select('MBI');
+var mbi19 = addMBI(maskedComposite19).select('MBI');
+var mbi20 = addMBI(maskedComposite20).select('MBI');
+var mbi21 = addMBI(maskedComposite21).select('MBI');
+var mbi22 = addMBI(maskedComposite22).select('MBI');
+var mbi23 = addMBI(maskedComposite23).select('MBI');
+var mbi24 = addMBI(maskedComposite24).select('MBI');
+var mbi25 = addMBI(maskedComposite25).select('MBI');
+var mbi26 = addMBI(maskedComposite26).select('MBI');
+var mbi27 = addMBI(maskedComposite27).select('MBI');
+var mbi28 = addMBI(maskedComposite28).select('MBI');
+var mbi29 = addMBI(maskedComposite29).select('MBI');
+var mbi30 = addMBI(maskedComposite30).select('MBI');
+var mbi31 = addMBI(maskedComposite31).select('MBI');
+var mbi32 = addMBI(maskedComposite32).select('MBI');
+var mbi33 = addMBI(maskedComposite33).select('MBI');
+var mbi34 = addMBI(maskedComposite34).select('MBI');
+var mbi35 = addMBI(maskedComposite35).select('MBI');
+var mbi36 = addMBI(maskedComposite36).select('MBI');
+var mbi37 = addMBI(maskedComposite37).select('MBI');
+var mbi38 = addMBI(maskedComposite38).select('MBI');
+var mbi39 = addMBI(maskedComposite39).select('MBI');
+var mbi40 = addMBI(maskedComposite40).select('MBI');
+var mbi41 = addMBI(maskedComposite41).select('MBI');
+var mbi42 = addMBI(maskedComposite42).select('MBI');
+var mbi43 = addMBI(maskedComposite43).select('MBI');
+
+print(mbi);
+
+// Define visualization parameters for the MBI.
+var visParamsMBI = {
+  min: -1, // Adjust based on the expected range of your MBI values
+  max: 1,
+  palette: ['yellow', 'green', 'blue'] // Example palette: low MBI values in yellow, moderate in green, high in blue
+};
+
+// Add the MBI layer to the map.
+Map.addLayer(mbi, visParamsMBI, 'MBI');
+
+//NBSI1 INDEX
+var ndsi1a = addNDSI1(maskedComposite).select('NDSI1');
+var ndsi1b = addNDSI1(maskedComposite2).select('NDSI1');
+var ndsi1c = addNDSI1(maskedComposite3).select('NDSI1');
+var ndsi1d = addNDSI1(maskedComposite4).select('NDSI1');
+var ndsi1e = addNDSI1(maskedComposite5).select('NDSI1');
+var ndsi1f = addNDSI1(maskedComposite6).select('NDSI1');
+var ndsi1g = addNDSI1(maskedComposite7).select('NDSI1');
+var ndsi1h = addNDSI1(maskedComposite8).select('NDSI1');
+var ndsi1i = addNDSI1(maskedComposite9).select('NDSI1');
+var ndsi1j = addNDSI1(maskedComposite10).select('NDSI1');
+var ndsi1k = addNDSI1(maskedComposite11).select('NDSI1');
+var ndsi1l = addNDSI1(maskedComposite12).select('NDSI1');
+var ndsi1m = addNDSI1(maskedComposite13).select('NDSI1');
+var ndsi1n = addNDSI1(maskedComposite14).select('NDSI1');
+var ndsi1o = addNDSI1(maskedComposite15).select('NDSI1');
+var ndsi1p = addNDSI1(maskedComposite16).select('NDSI1');
+var ndsi1q = addNDSI1(maskedComposite17).select('NDSI1');
+var ndsi1r = addNDSI1(maskedComposite18).select('NDSI1');
+var ndsi1s = addNDSI1(maskedComposite19).select('NDSI1');
+var ndsi1t = addNDSI1(maskedComposite20).select('NDSI1');
+var ndsi1u = addNDSI1(maskedComposite21).select('NDSI1');
+var ndsi1v = addNDSI1(maskedComposite22).select('NDSI1');
+var ndsi1w = addNDSI1(maskedComposite23).select('NDSI1');
+var ndsi1x = addNDSI1(maskedComposite24).select('NDSI1');
+var ndsi1y = addNDSI1(maskedComposite25).select('NDSI1');
+var ndsi1z = addNDSI1(maskedComposite26).select('NDSI1');
+var ndsi1aa = addNDSI1(maskedComposite27).select('NDSI1');
+var ndsi1bb = addNDSI1(maskedComposite28).select('NDSI1');
+var ndsi1cc = addNDSI1(maskedComposite29).select('NDSI1');
+var ndsi1dd = addNDSI1(maskedComposite30).select('NDSI1');
+var ndsi1ee = addNDSI1(maskedComposite31).select('NDSI1');
+var ndsi1ff = addNDSI1(maskedComposite32).select('NDSI1');
+var ndsi1gg = addNDSI1(maskedComposite33).select('NDSI1');
+var ndsi1hh = addNDSI1(maskedComposite34).select('NDSI1');
+var ndsi1ii = addNDSI1(maskedComposite35).select('NDSI1');
+var ndsi1jj = addNDSI1(maskedComposite36).select('NDSI1');
+var ndsi1kk = addNDSI1(maskedComposite37).select('NDSI1');
+var ndsi1ll = addNDSI1(maskedComposite38).select('NDSI1');
+var ndsi1mm = addNDSI1(maskedComposite39).select('NDSI1');
+var ndsi1nn = addNDSI1(maskedComposite40).select('NDSI1');
+var ndsi1oo = addNDSI1(maskedComposite41).select('NDSI1');
+var ndsi1pp = addNDSI1(maskedComposite42).select('NDSI1');
+var ndsi1qq = addNDSI1(maskedComposite43).select('NDSI1');
+
+print(ndsi1a)
+
+// Visualization parameters for NDSI1
+var visParams = {
+    min: -1, // Adjust based on your NDSI1 value range
+    max: 1,
+    palette: ['blue', 'white', 'brown'] // Example palette: blue for negative (vegetation), brown for positive (bare soil)
+};
+
+// Add the NDSI1 index layer to the map
+Map.addLayer(ndsi1a, visParams, 'NDSI1 Index');
+
+// Center the map (optional, adjust to your area of interest)
+Map.centerObject(maskedComposite, 9);
+
+//NBR2 INDEX
+// Calculate NBR2 index
+var nbr2a = maskedComposite.normalizedDifference(['B6', 'B7']).rename('NBR2_2013_1');
+var nbr2b = maskedComposite2.normalizedDifference(['B6', 'B7']).rename('NBR2_2013_2');
+var nbr2c = maskedComposite3.normalizedDifference(['B6', 'B7']).rename('NBR2_2013_3');
+var nbr2d = maskedComposite4.normalizedDifference(['B6', 'B7']).rename('NBR2_2014_1');
+var nbr2e = maskedComposite5.normalizedDifference(['B6', 'B7']).rename('NBR2_2014_2');
+var nbr2f = maskedComposite6.normalizedDifference(['B6', 'B7']).rename('NBR2_2014_3');
+var nbr2g = maskedComposite7.normalizedDifference(['B6', 'B7']).rename('NBR2_2014_4');
+var nbr2h = maskedComposite8.normalizedDifference(['B6', 'B7']).rename('NBR2_2015_1');
+var nbr2i = maskedComposite9.normalizedDifference(['B6', 'B7']).rename('NBR2_2015_2');
+var nbr2j = maskedComposite10.normalizedDifference(['B6', 'B7']).rename('NBR2_2015_3');
+var nbr2k = maskedComposite11.normalizedDifference(['B6', 'B7']).rename('NBR2_2015_4');
+var nbr2l = maskedComposite12.normalizedDifference(['B6', 'B7']).rename('NBR2_2016_1');
+var nbr2m = maskedComposite13.normalizedDifference(['B6', 'B7']).rename('NBR2_2016_2');
+var nbr2n = maskedComposite14.normalizedDifference(['B6', 'B7']).rename('NBR2_2016_3');
+var nbr2o = maskedComposite15.normalizedDifference(['B6', 'B7']).rename('NBR2_2016_4');
+var nbr2p = maskedComposite16.normalizedDifference(['B6', 'B7']).rename('NBR2_2017_1');
+var nbr2q = maskedComposite17.normalizedDifference(['B6', 'B7']).rename('NBR2_2017_2');
+var nbr2r = maskedComposite18.normalizedDifference(['B6', 'B7']).rename('NBR2_2017_3');
+var nbr2s = maskedComposite19.normalizedDifference(['B6', 'B7']).rename('NBR2_2017_4');
+var nbr2t = maskedComposite20.normalizedDifference(['B6', 'B7']).rename('NBR2_2018_1');
+var nbr2u = maskedComposite21.normalizedDifference(['B6', 'B7']).rename('NBR2_2018_2');
+var nbr2v = maskedComposite22.normalizedDifference(['B6', 'B7']).rename('NBR2_2018_3');
+var nbr2w = maskedComposite23.normalizedDifference(['B6', 'B7']).rename('NBR2_2018_4');
+var nbr2x = maskedComposite24.normalizedDifference(['B6', 'B7']).rename('NBR2_2019_1');
+var nbr2y = maskedComposite25.normalizedDifference(['B6', 'B7']).rename('NBR2_2019_2');
+var nbr2z = maskedComposite26.normalizedDifference(['B6', 'B7']).rename('NBR2_2019_3');
+var nbr2aa = maskedComposite27.normalizedDifference(['B6', 'B7']).rename('NBR2_2019_4');
+var nbr2bb = maskedComposite28.normalizedDifference(['B6', 'B7']).rename('NBR2_2020_1');
+var nbr2cc = maskedComposite29.normalizedDifference(['B6', 'B7']).rename('NBR2_2020_2');
+var nbr2dd = maskedComposite30.normalizedDifference(['B6', 'B7']).rename('NBR2_2020_3');
+var nbr2ee = maskedComposite31.normalizedDifference(['B6', 'B7']).rename('NBR2_2020_4');
+var nbr2ff = maskedComposite32.normalizedDifference(['B6', 'B7']).rename('NBR2_2021_1');
+var nbr2gg = maskedComposite33.normalizedDifference(['B6', 'B7']).rename('NBR2_2021_2');
+var nbr2hh = maskedComposite34.normalizedDifference(['B6', 'B7']).rename('NBR2_2021_3');
+var nbr2ii = maskedComposite35.normalizedDifference(['B6', 'B7']).rename('NBR2_2021_4');
+var nbr2jj = maskedComposite36.normalizedDifference(['B6', 'B7']).rename('NBR2_2022_1');
+var nbr2kk = maskedComposite37.normalizedDifference(['B6', 'B7']).rename('NBR2_2022_2');
+var nbr2ll = maskedComposite38.normalizedDifference(['B6', 'B7']).rename('NBR2_2022_3');
+var nbr2mm = maskedComposite39.normalizedDifference(['B6', 'B7']).rename('NBR2_2022_4');
+var nbr2nn = maskedComposite40.normalizedDifference(['B6', 'B7']).rename('NBR2_2023_1');
+var nbr2oo = maskedComposite41.normalizedDifference(['B6', 'B7']).rename('NBR2_2023_2');
+var nbr2pp = maskedComposite42.normalizedDifference(['B6', 'B7']).rename('NBR2_2023_3');
+var nbr2qq = maskedComposite43.normalizedDifference(['B6', 'B7']).rename('NBR2_2023_4');
+
+print(nbr2a)
+
+//DBSI INDEX
+var dbsi = addDBSI(maskedComposite).select('DBSI');
+var dbsi2 = addDBSI(maskedComposite2).select('DBSI');
+var dbsi3 = addDBSI(maskedComposite3).select('DBSI');
+var dbsi4 = addDBSI(maskedComposite4).select('DBSI');
+var dbsi5 = addDBSI(maskedComposite5).select('DBSI');
+var dbsi6 = addDBSI(maskedComposite6).select('DBSI');
+var dbsi7 = addDBSI(maskedComposite7).select('DBSI');
+var dbsi8 = addDBSI(maskedComposite8).select('DBSI');
+var dbsi9 = addDBSI(maskedComposite9).select('DBSI');
+var dbsi10 = addDBSI(maskedComposite10).select('DBSI');
+var dbsi11 = addDBSI(maskedComposite11).select('DBSI');
+var dbsi12 = addDBSI(maskedComposite12).select('DBSI');
+var dbsi13 = addDBSI(maskedComposite13).select('DBSI');
+var dbsi14 = addDBSI(maskedComposite14).select('DBSI');
+var dbsi15 = addDBSI(maskedComposite15).select('DBSI');
+var dbsi16 = addDBSI(maskedComposite16).select('DBSI');
+var dbsi17 = addDBSI(maskedComposite17).select('DBSI');
+var dbsi18 = addDBSI(maskedComposite18).select('DBSI');
+var dbsi19 = addDBSI(maskedComposite19).select('DBSI');
+var dbsi20 = addDBSI(maskedComposite20).select('DBSI');
+var dbsi21 = addDBSI(maskedComposite21).select('DBSI');
+var dbsi22 = addDBSI(maskedComposite22).select('DBSI');
+var dbsi23 = addDBSI(maskedComposite23).select('DBSI');
+var dbsi24 = addDBSI(maskedComposite24).select('DBSI');
+var dbsi25 = addDBSI(maskedComposite25).select('DBSI');
+var dbsi26 = addDBSI(maskedComposite26).select('DBSI');
+var dbsi27 = addDBSI(maskedComposite27).select('DBSI');
+var dbsi28 = addDBSI(maskedComposite28).select('DBSI');
+var dbsi29 = addDBSI(maskedComposite29).select('DBSI');
+var dbsi30 = addDBSI(maskedComposite30).select('DBSI');
+var dbsi31 = addDBSI(maskedComposite31).select('DBSI');
+var dbsi32 = addDBSI(maskedComposite32).select('DBSI');
+var dbsi33 = addDBSI(maskedComposite33).select('DBSI');
+var dbsi34 = addDBSI(maskedComposite34).select('DBSI');
+var dbsi35 = addDBSI(maskedComposite35).select('DBSI');
+var dbsi36 = addDBSI(maskedComposite36).select('DBSI');
+var dbsi37 = addDBSI(maskedComposite37).select('DBSI');
+var dbsi38 = addDBSI(maskedComposite38).select('DBSI');
+var dbsi39 = addDBSI(maskedComposite39).select('DBSI');
+var dbsi40 = addDBSI(maskedComposite40).select('DBSI');
+var dbsi41 = addDBSI(maskedComposite41).select('DBSI');
+var dbsi42 = addDBSI(maskedComposite42).select('DBSI');
+var dbsi43 = addDBSI(maskedComposite43).select('DBSI');
+
+print(dbsi)
+
+// Define visualization parameters for the DBSI.
+var visParams = {
+  min: -1, // Adjust these based on the expected range of your DBSI values
+  max: 1,
+  palette: ['blue', 'white', 'red'] // Example palette: blue (low DBSI), white (neutral), red (high DBSI)
+};
+
+// Add the DBSI layer to the map.
+Map.addLayer(dbsi, visParams, 'DBSI');
+
+//B3-B2 INDEX
+// Calculate B3-B2
+var b3MinusB2a = maskedComposite.select('B3').subtract(maskedComposite.select('B2')).rename('b3_2013_1');
+var b3MinusB2b = maskedComposite2.select('B3').subtract(maskedComposite2.select('B2')).rename('b3_2013_2');
+var b3MinusB2c = maskedComposite3.select('B3').subtract(maskedComposite3.select('B2')).rename('b3_2013_3');
+var b3MinusB2d = maskedComposite4.select('B3').subtract(maskedComposite4.select('B2')).rename('b3_2014_1');
+var b3MinusB2e = maskedComposite5.select('B3').subtract(maskedComposite5.select('B2')).rename('b3_2014_2');
+var b3MinusB2f = maskedComposite6.select('B3').subtract(maskedComposite6.select('B2')).rename('b3_2014_3');
+var b3MinusB2g = maskedComposite7.select('B3').subtract(maskedComposite7.select('B2')).rename('b3_2014_4');
+var b3MinusB2h = maskedComposite8.select('B3').subtract(maskedComposite8.select('B2')).rename('b3_2015_1');
+var b3MinusB2i = maskedComposite9.select('B3').subtract(maskedComposite9.select('B2')).rename('b3_2015_2');
+var b3MinusB2j = maskedComposite10.select('B3').subtract(maskedComposite10.select('B2')).rename('b3_2015_3');
+var b3MinusB2k = maskedComposite11.select('B3').subtract(maskedComposite11.select('B2')).rename('b3_2015_4');
+var b3MinusB2l = maskedComposite12.select('B3').subtract(maskedComposite12.select('B2')).rename('b3_2016_1');
+var b3MinusB2m = maskedComposite13.select('B3').subtract(maskedComposite13.select('B2')).rename('b3_2016_2');
+var b3MinusB2n = maskedComposite14.select('B3').subtract(maskedComposite14.select('B2')).rename('b3_2016_3');
+var b3MinusB2o = maskedComposite15.select('B3').subtract(maskedComposite15.select('B2')).rename('b3_2016_4');
+var b3MinusB2p = maskedComposite16.select('B3').subtract(maskedComposite16.select('B2')).rename('b3_2017_1');
+var b3MinusB2q = maskedComposite17.select('B3').subtract(maskedComposite17.select('B2')).rename('b3_2017_2');
+var b3MinusB2r = maskedComposite18.select('B3').subtract(maskedComposite18.select('B2')).rename('b3_2017_3');
+var b3MinusB2s = maskedComposite19.select('B3').subtract(maskedComposite19.select('B2')).rename('b3_2017_4');
+var b3MinusB2t = maskedComposite20.select('B3').subtract(maskedComposite20.select('B2')).rename('b3_2018_1');
+var b3MinusB2u = maskedComposite21.select('B3').subtract(maskedComposite21.select('B2')).rename('b3_2018_2');
+var b3MinusB2v = maskedComposite22.select('B3').subtract(maskedComposite22.select('B2')).rename('b3_2018_3');
+var b3MinusB2w = maskedComposite23.select('B3').subtract(maskedComposite23.select('B2')).rename('b3_2018_4');
+var b3MinusB2x = maskedComposite24.select('B3').subtract(maskedComposite24.select('B2')).rename('b3_2019_1');
+var b3MinusB2y = maskedComposite25.select('B3').subtract(maskedComposite25.select('B2')).rename('b3_2019_2');
+var b3MinusB2z = maskedComposite26.select('B3').subtract(maskedComposite26.select('B2')).rename('b3_2019_3');
+var b3MinusB2aa = maskedComposite27.select('B3').subtract(maskedComposite27.select('B2')).rename('b3_2019_4');
+var b3MinusB2bb = maskedComposite28.select('B3').subtract(maskedComposite28.select('B2')).rename('b3_2020_1');
+var b3MinusB2cc = maskedComposite29.select('B3').subtract(maskedComposite29.select('B2')).rename('b3_2020_2');
+var b3MinusB2dd = maskedComposite30.select('B3').subtract(maskedComposite30.select('B2')).rename('b3_2020_3');
+var b3MinusB2ee = maskedComposite31.select('B3').subtract(maskedComposite31.select('B2')).rename('b3_2020_4');
+var b3MinusB2ff = maskedComposite32.select('B3').subtract(maskedComposite32.select('B2')).rename('b3_2021_1');
+var b3MinusB2gg = maskedComposite33.select('B3').subtract(maskedComposite33.select('B2')).rename('b3_2021_2');
+var b3MinusB2hh = maskedComposite34.select('B3').subtract(maskedComposite34.select('B2')).rename('b3_2021_3');
+var b3MinusB2ii = maskedComposite35.select('B3').subtract(maskedComposite35.select('B2')).rename('b3_2021_4');
+var b3MinusB2jj = maskedComposite36.select('B3').subtract(maskedComposite36.select('B2')).rename('b3_2022_1');
+var b3MinusB2kk = maskedComposite37.select('B3').subtract(maskedComposite37.select('B2')).rename('b3_2022_2');
+var b3MinusB2ll = maskedComposite38.select('B3').subtract(maskedComposite38.select('B2')).rename('b3_2022_3');
+var b3MinusB2mm = maskedComposite39.select('B3').subtract(maskedComposite39.select('B2')).rename('b3_2022_4');
+var b3MinusB2nn = maskedComposite40.select('B3').subtract(maskedComposite40.select('B2')).rename('b3_2023_1');
+var b3MinusB2oo = maskedComposite41.select('B3').subtract(maskedComposite41.select('B2')).rename('b3_2023_2');
+var b3MinusB2pp = maskedComposite42.select('B3').subtract(maskedComposite42.select('B2')).rename('b3_2023_3');
+var b3MinusB2qq = maskedComposite43.select('B3').subtract(maskedComposite43.select('B2')).rename('b3_2023_4');
+
+print(b3MinusB2a)
+
+//COMBINED BANDS
+var combinedImage = mbi.addBands(nbr2a).addBands(b3MinusB2a).addBands(ndsi1a).addBands(dbsi);
+var combinedImage2 = mbi2.addBands(nbr2b).addBands(b3MinusB2b).addBands(ndsi1b).addBands(dbsi2);
+var combinedImage3 = mbi3.addBands(nbr2c).addBands(b3MinusB2c).addBands(ndsi1c).addBands(dbsi3);
+var combinedImage4 = mbi4.addBands(nbr2d).addBands(b3MinusB2d).addBands(ndsi1d).addBands(dbsi4);
+var combinedImage5 = mbi5.addBands(nbr2e).addBands(b3MinusB2e).addBands(ndsi1e).addBands(dbsi5);
+var combinedImage6 = mbi6.addBands(nbr2f).addBands(b3MinusB2f).addBands(ndsi1f).addBands(dbsi6);
+var combinedImage7 = mbi7.addBands(nbr2g).addBands(b3MinusB2g).addBands(ndsi1g).addBands(dbsi7);
+var combinedImage8 = mbi8.addBands(nbr2h).addBands(b3MinusB2h).addBands(ndsi1h).addBands(dbsi8);
+var combinedImage9 = mbi9.addBands(nbr2i).addBands(b3MinusB2i).addBands(ndsi1i).addBands(dbsi9);
+var combinedImage10 = mbi10.addBands(nbr2j).addBands(b3MinusB2j).addBands(ndsi1j).addBands(dbsi10);
+var combinedImage11 = mbi11.addBands(nbr2k).addBands(b3MinusB2k).addBands(ndsi1k).addBands(dbsi11);
+var combinedImage12 = mbi12.addBands(nbr2l).addBands(b3MinusB2l).addBands(ndsi1l).addBands(dbsi12);
+var combinedImage13 = mbi13.addBands(nbr2m).addBands(b3MinusB2m).addBands(ndsi1m).addBands(dbsi13);
+var combinedImage14 = mbi14.addBands(nbr2n).addBands(b3MinusB2n).addBands(ndsi1n).addBands(dbsi14);
+var combinedImage15 = mbi15.addBands(nbr2o).addBands(b3MinusB2o).addBands(ndsi1o).addBands(dbsi15);
+var combinedImage16 = mbi16.addBands(nbr2p).addBands(b3MinusB2p).addBands(ndsi1p).addBands(dbsi16);
+var combinedImage17 = mbi17.addBands(nbr2q).addBands(b3MinusB2q).addBands(ndsi1q).addBands(dbsi17);
+var combinedImage18 = mbi18.addBands(nbr2r).addBands(b3MinusB2r).addBands(ndsi1r).addBands(dbsi18);
+var combinedImage19 = mbi19.addBands(nbr2s).addBands(b3MinusB2s).addBands(ndsi1s).addBands(dbsi19);
+var combinedImage20 = mbi20.addBands(nbr2t).addBands(b3MinusB2t).addBands(ndsi1t).addBands(dbsi20);
+var combinedImage21 = mbi21.addBands(nbr2u).addBands(b3MinusB2u).addBands(ndsi1u).addBands(dbsi21);
+var combinedImage22 = mbi22.addBands(nbr2v).addBands(b3MinusB2v).addBands(ndsi1v).addBands(dbsi22);
+var combinedImage23 = mbi23.addBands(nbr2w).addBands(b3MinusB2w).addBands(ndsi1w).addBands(dbsi23);
+var combinedImage24 = mbi24.addBands(nbr2x).addBands(b3MinusB2x).addBands(ndsi1x).addBands(dbsi24);
+var combinedImage25 = mbi25.addBands(nbr2y).addBands(b3MinusB2y).addBands(ndsi1y).addBands(dbsi25);
+var combinedImage26 = mbi26.addBands(nbr2z).addBands(b3MinusB2z).addBands(ndsi1z).addBands(dbsi26);
+var combinedImage27 = mbi27.addBands(nbr2aa).addBands(b3MinusB2aa).addBands(ndsi1aa).addBands(dbsi27);
+var combinedImage28 = mbi28.addBands(nbr2bb).addBands(b3MinusB2bb).addBands(ndsi1bb).addBands(dbsi28);
+var combinedImage29 = mbi29.addBands(nbr2cc).addBands(b3MinusB2cc).addBands(ndsi1cc).addBands(dbsi29);
+var combinedImage30 = mbi30.addBands(nbr2dd).addBands(b3MinusB2dd).addBands(ndsi1dd).addBands(dbsi30);
+var combinedImage31 = mbi31.addBands(nbr2ee).addBands(b3MinusB2ee).addBands(ndsi1ee).addBands(dbsi31);
+var combinedImage32 = mbi32.addBands(nbr2ff).addBands(b3MinusB2ff).addBands(ndsi1ff).addBands(dbsi32);
+var combinedImage33 = mbi33.addBands(nbr2gg).addBands(b3MinusB2gg).addBands(ndsi1gg).addBands(dbsi33);
+var combinedImage34 = mbi34.addBands(nbr2hh).addBands(b3MinusB2hh).addBands(ndsi1hh).addBands(dbsi34);
+var combinedImage35 = mbi35.addBands(nbr2ii).addBands(b3MinusB2ii).addBands(ndsi1ii).addBands(dbsi35);
+var combinedImage36 = mbi36.addBands(nbr2jj).addBands(b3MinusB2jj).addBands(ndsi1jj).addBands(dbsi36);
+var combinedImage37 = mbi37.addBands(nbr2kk).addBands(b3MinusB2kk).addBands(ndsi1kk).addBands(dbsi37);
+var combinedImage38 = mbi38.addBands(nbr2ll).addBands(b3MinusB2ll).addBands(ndsi1ll).addBands(dbsi38);
+var combinedImage39 = mbi39.addBands(nbr2mm).addBands(b3MinusB2mm).addBands(ndsi1mm).addBands(dbsi39);
+var combinedImage40 = mbi40.addBands(nbr2nn).addBands(b3MinusB2nn).addBands(ndsi1nn).addBands(dbsi40);
+var combinedImage41 = mbi41.addBands(nbr2oo).addBands(b3MinusB2oo).addBands(ndsi1oo).addBands(dbsi41);
+var combinedImage42 = mbi42.addBands(nbr2pp).addBands(b3MinusB2pp).addBands(ndsi1pp).addBands(dbsi42);
+var combinedImage43 = mbi43.addBands(nbr2qq).addBands(b3MinusB2qq).addBands(ndsi1qq).addBands(dbsi43);
+
+
+//CRITERIA
+// Define criteria for flagging bare soil
+var criteria = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria = combinedImage
+  .where(mbi.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1a.gte(0), 1) // Check NDVI within the range
+  .where(nbr2a.gte(0).and(nbr2a.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi.gte(0.125), 1)
+  .where(b3MinusB2a.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage = combinedImage.updateMask(criteria);
+
+// Define criteria for flagging bare soil
+var criteria2 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria2 = criteria
+  .where(mbi2.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1b.gte(0), 1) // Check NDVI within the range
+  .where(nbr2b.gte(0).and(nbr2b.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi2.gte(0.125), 1)
+  .where(b3MinusB2b.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage2 = combinedImage2.updateMask(criteria2);
+
+// Define criteria for flagging bare soil
+var criteria3 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria3 = criteria
+  .where(mbi3.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1c.gte(0), 1) // Check NDVI within the range
+  .where(nbr2c.gte(0).and(nbr2c.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi3.gte(0.125), 1)
+  .where(b3MinusB2c.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage3 = combinedImage3.updateMask(criteria3);
+
+// Define criteria for flagging bare soil
+var criteria4 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria4 = criteria
+  .where(mbi4.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1d.gte(0), 1) // Check NDVI within the range
+  .where(nbr2d.gte(0).and(nbr2d.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi4.gte(0.125), 1)
+  .where(b3MinusB2d.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage4 = combinedImage4.updateMask(criteria4);
+
+// Define criteria for flagging bare soil
+var criteria5 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria5 = criteria
+  .where(mbi5.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1e.gte(0), 1) // Check NDVI within the range
+  .where(nbr2e.gte(0).and(nbr2e.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi5.gte(0.125), 1)
+  .where(b3MinusB2e.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage5 = combinedImage5.updateMask(criteria5);
+
+// Define criteria for flagging bare soil
+var criteria6 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria6 = criteria
+  .where(mbi6.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1f.gte(0), 1) // Check NDVI within the range
+  .where(nbr2f.gte(0).and(nbr2f.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi6.gte(0.125), 1)
+  .where(b3MinusB2f.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage6 = combinedImage6.updateMask(criteria6);
+
+// Define criteria for flagging bare soil
+var criteria7 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria7 = criteria
+  .where(mbi7.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1g.gte(0), 1) // Check NDVI within the range
+  .where(nbr2g.gte(0).and(nbr2g.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi7.gte(0.125), 1)
+  .where(b3MinusB2g.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage7 = combinedImage7.updateMask(criteria7);
+
+// Define criteria for flagging bare soil
+var criteria8 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria8 = criteria
+  .where(mbi8.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1h.gte(0), 1) // Check NDVI within the range
+  .where(nbr2h.gte(0).and(nbr2h.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi8.gte(0.125), 1)
+  .where(b3MinusB2h.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage8 = combinedImage8.updateMask(criteria8);
+
+// Define criteria for flagging bare soil
+var criteria9 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria9 = criteria
+  .where(mbi9.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1i.gte(0), 1) // Check NDVI within the range
+  .where(nbr2i.gte(0).and(nbr2i.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi9.gte(0.125), 1)
+  .where(b3MinusB2i.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage9 = combinedImage9.updateMask(criteria9);
+
+// Define criteria for flagging bare soil
+var criteria10 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria10 = criteria
+  .where(mbi10.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1j.gte(0), 1) // Check NDVI within the range
+  .where(nbr2j.gte(0).and(nbr2j.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi10.gte(0.125), 1)
+  .where(b3MinusB2j.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage10 = combinedImage10.updateMask(criteria10);
+
+// Define criteria for flagging bare soil
+var criteria11 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria11 = criteria
+  .where(mbi11.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1k.gte(0), 1) // Check NDVI within the range
+  .where(nbr2k.gte(0).and(nbr2k.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi11.gte(0.125), 1)
+  .where(b3MinusB2k.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage11 = combinedImage11.updateMask(criteria11);
+
+// Define criteria for flagging bare soil
+var criteria12 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria12 = criteria
+  .where(mbi12.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1l.gte(0), 1) // Check NDVI within the range
+  .where(nbr2l.gte(0).and(nbr2l.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi12.gte(0.125), 1)
+  .where(b3MinusB2l.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage12 = combinedImage12.updateMask(criteria12);
+
+// Define criteria for flagging bare soil
+var criteria13 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria13 = criteria
+  .where(mbi13.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1m.gte(0), 1) // Check NDVI within the range
+  .where(nbr2m.gte(0).and(nbr2m.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi13.gte(0.125), 1)
+  .where(b3MinusB2m.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage13 = combinedImage13.updateMask(criteria13);
+
+// Define criteria for flagging bare soil
+var criteria14 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria14 = criteria
+  .where(mbi14.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1n.gte(0), 1) // Check NDVI within the range
+  .where(nbr2n.gte(0).and(nbr2n.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi14.gte(0.125), 1)
+  .where(b3MinusB2n.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage14 = combinedImage14.updateMask(criteria14);
+
+// Define criteria for flagging bare soil
+var criteria15 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria15 = criteria
+  .where(mbi15.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1o.gte(0), 1) // Check NDVI within the range
+  .where(nbr2o.gte(0).and(nbr2o.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi15.gte(0.125), 1)
+  .where(b3MinusB2o.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage15 = combinedImage15.updateMask(criteria15);
+
+// Define criteria for flagging bare soil
+var criteria16 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria16 = criteria
+  .where(mbi16.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1p.gte(0), 1) // Check NDVI within the range
+  .where(nbr2p.gte(0).and(nbr2p.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi16.gte(0.125), 1)
+  .where(b3MinusB2p.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage16 = combinedImage16.updateMask(criteria16);
+
+// Define criteria for flagging bare soil
+var criteria17 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria17 = criteria
+  .where(mbi17.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1q.gte(0), 1) // Check NDVI within the range
+  .where(nbr2q.gte(0).and(nbr2q.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi17.gte(0.125), 1)
+  .where(b3MinusB2q.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage17 = combinedImage17.updateMask(criteria17);
+
+// Define criteria for flagging bare soil
+var criteria18 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria18 = criteria
+  .where(mbi18.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1r.gte(0), 1) // Check NDVI within the range
+  .where(nbr2r.gte(0).and(nbr2r.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi18.gte(0.125), 1)
+  .where(b3MinusB2r.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage18 = combinedImage18.updateMask(criteria18);
+
+// Define criteria for flagging bare soil
+var criteria19 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria19 = criteria
+  .where(mbi19.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1s.gte(0), 1) // Check NDVI within the range
+  .where(nbr2s.gte(0).and(nbr2s.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi19.gte(0.125), 1)
+  .where(b3MinusB2s.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage19 = combinedImage19.updateMask(criteria19);
+
+// Define criteria for flagging bare soil
+var criteria20 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria20 = criteria
+  .where(mbi20.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1t.gte(0), 1) // Check NDVI within the range
+  .where(nbr2t.gte(0).and(nbr2t.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi20.gte(0.125), 1)
+  .where(b3MinusB2t.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage20 = combinedImage20.updateMask(criteria20);
+
+// Define criteria for flagging bare soil
+var criteria21 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria21 = criteria
+  .where(mbi21.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1u.gte(0), 1) // Check NDVI within the range
+  .where(nbr2u.gte(0).and(nbr2u.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi21.gte(0.125), 1)
+  .where(b3MinusB2u.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage21 = combinedImage21.updateMask(criteria21);
+
+// Define criteria for flagging bare soil
+var criteria22 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria22 = criteria
+  .where(mbi22.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1v.gte(0), 1) // Check NDVI within the range
+  .where(nbr2v.gte(0).and(nbr2v.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi22.gte(0.125), 1)
+  .where(b3MinusB2v.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage22 = combinedImage22.updateMask(criteria22);
+
+// Define criteria for flagging bare soil
+var criteria23 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria23 = criteria
+  .where(mbi23.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1w.gte(0), 1) // Check NDVI within the range
+  .where(nbr2w.gte(0).and(nbr2w.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi23.gte(0.125), 1)
+  .where(b3MinusB2w.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage23 = combinedImage23.updateMask(criteria23);
+
+// Define criteria for flagging bare soil
+var criteria24 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria24 = criteria
+  .where(mbi24.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1x.gte(0), 1) // Check NDVI within the range
+  .where(nbr2x.gte(0).and(nbr2x.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi24.gte(0.125), 1)
+  .where(b3MinusB2x.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage24 = combinedImage24.updateMask(criteria24);
+
+// Define criteria for flagging bare soil
+var criteria25 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria25 = criteria
+  .where(mbi25.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1y.gte(0), 1) // Check NDVI within the range
+  .where(nbr2y.gte(0).and(nbr2y.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi25.gte(0.125), 1)
+  .where(b3MinusB2y.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage25 = combinedImage25.updateMask(criteria25);
+
+// Define criteria for flagging bare soil
+var criteria26 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria26 = criteria
+  .where(mbi26.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1z.gte(0), 1) // Check NDVI within the range
+  .where(nbr2z.gte(0).and(nbr2z.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi26.gte(0.125), 1)
+  .where(b3MinusB2z.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage26 = combinedImage26.updateMask(criteria26);
+
+// Define criteria for flagging bare soil
+var criteria27 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria27 = criteria
+  .where(mbi27.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1aa.gte(0), 1) // Check NDVI within the range
+  .where(nbr2aa.gte(0).and(nbr2aa.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi27.gte(0.125), 1)
+  .where(b3MinusB2aa.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage27 = combinedImage27.updateMask(criteria27);
+
+// Define criteria for flagging bare soil
+var criteria28 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria28 = criteria
+  .where(mbi28.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1bb.gte(0), 1) // Check NDVI within the range
+  .where(nbr2bb.gte(0).and(nbr2bb.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi28.gte(0.125), 1)
+  .where(b3MinusB2bb.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage28 = combinedImage28.updateMask(criteria28);
+
+// Define criteria for flagging bare soil
+var criteria29 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria29 = criteria
+  .where(mbi29.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1cc.gte(0), 1) // Check NDVI within the range
+  .where(nbr2cc.gte(0).and(nbr2cc.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi29.gte(0.125), 1)
+  .where(b3MinusB2cc.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage29 = combinedImage29.updateMask(criteria29);
+
+// Define criteria for flagging bare soil
+var criteria30 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria30 = criteria
+  .where(mbi30.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1dd.gte(0), 1) // Check NDVI within the range
+  .where(nbr2dd.gte(0).and(nbr2dd.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi30.gte(0.125), 1)
+  .where(b3MinusB2dd.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage30 = combinedImage30.updateMask(criteria30);
+
+// Define criteria for flagging bare soil
+var criteria31 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria31 = criteria
+  .where(mbi31.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1ee.gte(0), 1) // Check NDVI within the range
+  .where(nbr2ee.gte(0).and(nbr2ee.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi31.gte(0.125), 1)
+  .where(b3MinusB2ee.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage31 = combinedImage31.updateMask(criteria31);
+
+// Define criteria for flagging bare soil
+var criteria32 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria32 = criteria
+  .where(mbi32.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1ff.gte(0), 1) // Check NDVI within the range
+  .where(nbr2ff.gte(0).and(nbr2ff.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi32.gte(0.125), 1)
+  .where(b3MinusB2ff.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage32 = combinedImage32.updateMask(criteria32);
+
+// Define criteria for flagging bare soil
+var criteria33 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria33 = criteria
+  .where(mbi33.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1gg.gte(0), 1) // Check NDVI within the range
+  .where(nbr2gg.gte(0).and(nbr2gg.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi33.gte(0.125), 1)
+  .where(b3MinusB2gg.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage33 = combinedImage33.updateMask(criteria33);
+
+// Define criteria for flagging bare soil
+var criteria34 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria34 = criteria
+  .where(mbi34.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1hh.gte(0), 1) // Check NDVI within the range
+  .where(nbr2hh.gte(0).and(nbr2hh.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi34.gte(0.125), 1)
+  .where(b3MinusB2hh.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage34 = combinedImage34.updateMask(criteria34);
+
+// Define criteria for flagging bare soil
+var criteria35 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria35 = criteria
+  .where(mbi35.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1ii.gte(0), 1) // Check NDVI within the range
+  .where(nbr2ii.gte(0).and(nbr2ii.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi35.gte(0.125), 1)
+  .where(b3MinusB2ii.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage35 = combinedImage35.updateMask(criteria35);
+
+// Define criteria for flagging bare soil
+var criteria36 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria36 = criteria
+  .where(mbi36.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1jj.gte(0), 1) // Check NDVI within the range
+  .where(nbr2jj.gte(0).and(nbr2jj.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi36.gte(0.125), 1)
+  .where(b3MinusB2jj.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage36 = combinedImage36.updateMask(criteria36);
+
+// Define criteria for flagging bare soil
+var criteria37 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria37 = criteria
+  .where(mbi37.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1kk.gte(0), 1) // Check NDVI within the range
+  .where(nbr2kk.gte(0).and(nbr2kk.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi37.gte(0.125), 1)
+  .where(b3MinusB2kk.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage37 = combinedImage37.updateMask(criteria37);
+
+// Define criteria for flagging bare soil
+var criteria38 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria38 = criteria
+  .where(mbi38.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1ll.gte(0), 1) // Check NDVI within the range
+  .where(nbr2ll.gte(0).and(nbr2ll.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi38.gte(0.125), 1)
+  .where(b3MinusB2ll.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage38 = combinedImage38.updateMask(criteria38);
+
+// Define criteria for flagging bare soil
+var criteria39 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria39 = criteria
+  .where(mbi39.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1mm.gte(0), 1) // Check NDVI within the range
+  .where(nbr2mm.gte(0).and(nbr2mm.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi39.gte(0.125), 1)
+  .where(b3MinusB2mm.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage39 = combinedImage39.updateMask(criteria39);
+
+// Define criteria for flagging bare soil
+var criteria40 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria40 = criteria
+  .where(mbi40.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1nn.gte(0), 1) // Check NDVI within the range
+  .where(nbr2nn.gte(0).and(nbr2nn.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi40.gte(0.125), 1)
+  .where(b3MinusB2nn.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage40 = combinedImage40.updateMask(criteria40);
+
+// Define criteria for flagging bare soil
+var criteria41 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria41 = criteria
+  .where(mbi41.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1oo.gte(0), 1) // Check NDVI within the range
+  .where(nbr2oo.gte(0).and(nbr2oo.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi41.gte(0.125), 1)
+  .where(b3MinusB2oo.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage41 = combinedImage41.updateMask(criteria41);
+
+// Define criteria for flagging bare soil
+var criteria42 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria42 = criteria
+  .where(mbi42.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1pp.gte(0), 1) // Check NDVI within the range
+  .where(nbr2pp.gte(0).and(nbr2pp.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi42.gte(0.125), 1)
+  .where(b3MinusB2pp.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage42 = combinedImage42.updateMask(criteria42);
+
+// Define criteria for flagging bare soil
+var criteria43 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria43 = criteria
+  .where(mbi43.gt(0.22), 1) // Check B4-B3 is positive
+  .where(ndsi1qq.gte(0), 1) // Check NDVI within the range
+  .where(nbr2qq.gte(0).and(nbr2qq.lte(0.075)), 1) // Check NBR2 within the range
+  .where(dbsi43.gte(0.125), 1)
+  .where(b3MinusB2qq.gte(0), 1);
+
+// Apply the criteria to the median image
+var classifiedImage43 = combinedImage43.updateMask(criteria43);
+
+
+print(classifiedImage)
+
+// Define visualization parameters for the classified image
+var visParamsClassified = {
+  min: 0,  // Minimum value of your classified image
+  max: 1,  // Maximum value of your classified image
+  //palette: ['000000', 'ff0000'] // Example palette: non-bare soil areas in black, bare soil areas in red
+};
+
+// Add the classified layer to the map with the defined visualization parameters
+Map.addLayer(classifiedImage, visParamsClassified, 'Classified Bare Soil');
+
+// Optionally, set the map center to the area of interest.
+// Map.setCenter(longitude, latitude, zoomLevel);
+// For example: Map.setCenter(-120.5, 37.5, 8);
+
+

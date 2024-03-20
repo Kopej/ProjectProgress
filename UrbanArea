@@ -1,0 +1,538 @@
+var landsat8 = ee.ImageCollection("LANDSAT/LC08/C02/T1_TOA");
+
+var landsat9 = ee.ImageCollection("LANDSAT/LC09/C02/T1_TOA")
+
+var rgbVis = {
+  min: 0.0,
+  max: 0.3,
+  bands: ['B1', 'B2', 'B3'],
+};
+
+var ndviVis = {min:0, max:1, palette: ['green', 'white']};
+
+var nbr2Vis = {min:0, max:2, palette: ['red', 'white']};
+
+var b3MinusB2Vis = {min:-1, max:1, palette: ['blue', 'red']};
+
+var b2MinusB1Vis = {min:-1, max:1, palette: ['white', 'red']};
+
+
+var filtered45 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-01-01', '2013-04-30')
+  .filterBounds(geometry);
+
+var filtered = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-05-01', '2013-07-30')
+  .filterBounds(geometry);
+  
+var filtered2 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-08-01', '2013-10-30')
+  .filterBounds(geometry);
+  
+var filtered3 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-10-01', '2013-12-30')
+  .filterBounds(geometry);
+  
+var filtered34 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2013-01-01', '2013-12-30')
+  .filterBounds(geometry);
+
+var filtered46 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-01-01', '2014-04-30')
+  .filterBounds(geometry);
+  
+var filtered4 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-05-01', '2014-07-30')
+  .filterBounds(geometry);
+  
+var filtered5 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-08-01', '2014-10-30')
+  .filterBounds(geometry);
+  
+var filtered6 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-10-01', '2014-12-30')
+  .filterBounds(geometry);
+  
+var filtered35 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2014-01-01', '2014-12-30')
+  .filterBounds(geometry);
+
+var filtered47 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-01-01', '2015-04-30')
+  .filterBounds(geometry);
+  
+var filtered7 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-05-01', '2015-07-30')
+  .filterBounds(geometry);
+  
+var filtered8 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-07-01', '2015-10-30')
+  .filterBounds(geometry);
+  
+var filtered9 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-10-01', '2015-12-30')
+  .filterBounds(geometry);
+
+var filtered36 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2015-01-01', '2015-12-30')
+  .filterBounds(geometry);
+
+var filtered48 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-01-01', '2016-04-30')
+  .filterBounds(geometry);
+  
+var filtered10 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-05-01', '2016-07-30')
+  .filterBounds(geometry);
+  
+var filtered11 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-07-01', '2016-10-30')
+  .filterBounds(geometry);
+  
+var filtered12 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-10-01', '2016-12-30')
+  .filterBounds(geometry);
+  
+var filtered37 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2016-01-01', '2016-12-30')
+  .filterBounds(geometry);
+
+var filtered49 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-01-01', '2017-04-30')
+  .filterBounds(geometry);
+  
+var filtered13 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-05-01', '2017-07-30')
+  .filterBounds(geometry);
+  
+var filtered14 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-07-01', '2017-10-30')
+  .filterBounds(geometry);
+  
+var filtered15 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-10-01', '2017-12-30')
+  .filterBounds(geometry);
+  
+var filtered38 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2017-01-01', '2017-12-30')
+  .filterBounds(geometry);
+
+var filtered50 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-01-01', '2018-04-30')
+  .filterBounds(geometry);
+  
+var filtered16 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-05-01', '2018-07-30')
+  .filterBounds(geometry);
+  
+var filtered17 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-07-01', '2018-10-30')
+  .filterBounds(geometry);
+  
+var filtered18 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-10-01', '2018-12-30')
+  .filterBounds(geometry);
+  
+var filtered39 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2018-01-01', '2018-12-30')
+  .filterBounds(geometry);
+
+var filtered51 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-01-01', '2019-04-30')
+  .filterBounds(geometry);
+  
+var filtered19 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-05-01', '2019-07-30')
+  .filterBounds(geometry);
+  
+var filtered20 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-07-01', '2019-10-30')
+  .filterBounds(geometry);
+  
+var filtered21 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-10-01', '2019-12-30')
+  .filterBounds(geometry);
+  
+var filtered40 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2019-01-01', '2019-12-30')
+  .filterBounds(geometry);
+
+var filtered52 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-01-01', '2020-04-30')
+  .filterBounds(geometry);
+  
+var filtered22 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-05-01', '2020-07-30')
+  .filterBounds(geometry);
+  
+var filtered23 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-07-01', '2020-10-30')
+  .filterBounds(geometry);
+  
+var filtered24 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-10-01', '2020-12-30')
+  .filterBounds(geometry);
+  
+var filtered41 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2020-01-01', '2020-12-30')
+  .filterBounds(geometry);
+
+var filtered53 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-01-01', '2021-04-30')
+  .filterBounds(geometry);
+  
+var filtered25 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-05-01', '2021-07-30')
+  .filterBounds(geometry);
+  
+var filtered26 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-07-01', '2021-10-30')
+  .filterBounds(geometry);
+  
+var filtered27 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-10-01', '2021-12-30')
+  .filterBounds(geometry);
+  
+var filtered42 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2021-01-01', '2021-12-30')
+  .filterBounds(geometry);
+
+var filtered54 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-01-01', '2022-04-30')
+  .filterBounds(geometry);
+  
+var filtered28 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-05-01', '2022-07-30')
+  .filterBounds(geometry);
+  
+var filtered29 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-07-01', '2022-10-30')
+  .filterBounds(geometry);
+  
+var filtered30 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-10-01', '2022-12-30')
+  .filterBounds(geometry);
+  
+var filtered43 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2022-01-01', '2022-12-30')
+  .filterBounds(geometry);
+
+var filtered55 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-01-01', '2023-04-30')
+  .filterBounds(geometry);
+  
+var filtered31 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-05-01', '2023-07-30')
+  .filterBounds(geometry);
+  
+var filtered32 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-07-01', '2023-10-30')
+  .filterBounds(geometry);
+  
+var filtered33 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-10-01', '2023-12-30')
+  .filterBounds(geometry);
+  
+var filtered44 = landsat8
+  .filter(ee.Filter.lt('CLOUD_COVER', 30))
+  .filterDate('2023-01-01', '2023-12-30')
+  .filterBounds(geometry);
+  
+
+  
+// Rename and print the filtered collection
+//print(filtered33)
+
+var medianComposite = filtered.median().clip(geometry);
+var medianComposite2 = filtered2.median().clip(geometry);
+var medianComposite3 = filtered3.median().clip(geometry);
+var medianComposite4 = filtered4.median().clip(geometry);
+var medianComposite5 = filtered5.median().clip(geometry);
+var medianComposite6 = filtered6.median().clip(geometry);
+var medianComposite7 = filtered7.median().clip(geometry);
+var medianComposite8 = filtered8.median().clip(geometry);
+var medianComposite9 = filtered9.median().clip(geometry);
+var medianComposite10 = filtered10.median().clip(geometry);
+var medianComposite11 = filtered11.median().clip(geometry);
+var medianComposite12 = filtered12.median().clip(geometry);
+var medianComposite13 = filtered13.median().clip(geometry);
+var medianComposite14 = filtered14.median().clip(geometry);
+var medianComposite15 = filtered15.median().clip(geometry);
+var medianComposite16 = filtered16.median().clip(geometry);
+var medianComposite17 = filtered17.median().clip(geometry);
+var medianComposite18 = filtered18.median().clip(geometry);
+var medianComposite19 = filtered19.median().clip(geometry);
+var medianComposite20 = filtered20.median().clip(geometry);
+var medianComposite21 = filtered21.median().clip(geometry);
+var medianComposite22 = filtered22.median().clip(geometry);
+var medianComposite23 = filtered23.median().clip(geometry);
+var medianComposite24 = filtered24.median().clip(geometry);
+var medianComposite25 = filtered25.median().clip(geometry);
+var medianComposite26 = filtered26.median().clip(geometry);
+var medianComposite27 = filtered27.median().clip(geometry);
+var medianComposite28 = filtered28.median().clip(geometry);
+var medianComposite29 = filtered29.median().clip(geometry);
+var medianComposite30 = filtered30.median().clip(geometry);
+var medianComposite31 = filtered31.median().clip(geometry);
+var medianComposite32 = filtered32.median().clip(geometry);
+var medianComposite33 = filtered33.median().clip(geometry);
+var medianComposite34 = filtered34.median().clip(geometry);
+var medianComposite35 = filtered35.median().clip(geometry);
+var medianComposite36 = filtered36.median().clip(geometry);
+var medianComposite37 = filtered37.median().clip(geometry);
+var medianComposite38 = filtered38.median().clip(geometry);
+var medianComposite39 = filtered39.median().clip(geometry);
+var medianComposite40 = filtered40.median().clip(geometry);
+var medianComposite41 = filtered41.median().clip(geometry);
+var medianComposite42 = filtered42.median().clip(geometry);
+var medianComposite43 = filtered43.median().clip(geometry);
+var medianComposite44 = filtered44.median().clip(geometry);
+var medianComposite45 = filtered45.median().clip(geometry);
+var medianComposite46 = filtered46.median().clip(geometry);
+var medianComposite47 = filtered47.median().clip(geometry);
+var medianComposite48 = filtered48.median().clip(geometry);
+var medianComposite49 = filtered49.median().clip(geometry);
+var medianComposite50 = filtered50.median().clip(geometry);
+var medianComposite51 = filtered51.median().clip(geometry);
+var medianComposite52 = filtered52.median().clip(geometry);
+var medianComposite53 = filtered53.median().clip(geometry);
+var medianComposite54 = filtered54.median().clip(geometry);
+var medianComposite55 = filtered55.median().clip(geometry);
+
+/*print(medianComposite34)
+print(medianComposite35)
+print(medianComposite36)
+print(medianComposite37)
+print(medianComposite38)
+print(medianComposite39)
+print(medianComposite40)
+print(medianComposite41)
+print(medianComposite42)
+print(medianComposite43)
+print(medianComposite44)*/
+
+//var medianComposite = filtered.mosaic().clip(geometry);
+//print(medianComposite)
+// Visualize the filtered images (RGB)
+/*Map.centerObject(geometry, 8); // Center the map on the geometry
+Map.addLayer(medianComposite45, rgbVis, 'Filtered Landsat Images (RGB)1');
+Map.addLayer(medianComposite46, rgbVis, 'Filtered Landsat Images (RGB)2');
+Map.addLayer(medianComposite47, rgbVis, 'Filtered Landsat Images (RGB)3');
+Map.addLayer(medianComposite48, rgbVis, 'Filtered Landsat Images (RGB)4');
+Map.addLayer(medianComposite49, rgbVis, 'Filtered Landsat Images (RGB)5');
+Map.addLayer(medianComposite50, rgbVis, 'Filtered Landsat Images (RGB)6');
+Map.addLayer(medianComposite51, rgbVis, 'Filtered Landsat Images (RGB)7');
+Map.addLayer(medianComposite52, rgbVis, 'Filtered Landsat Images (RGB)8');
+Map.addLayer(medianComposite53, rgbVis, 'Filtered Landsat Images (RGB)9');
+Map.addLayer(medianComposite54, rgbVis, 'Filtered Landsat Images (RGB)10');
+Map.addLayer(medianComposite55, rgbVis, 'Filtered Landsat Images (RGB)11');*/
+
+
+function cloudMask(image){
+  var qa = image.select('QA_PIXEL');
+    // Convert QA_PIXEL band to integer
+  qa = qa.toInt();
+  
+  var dilated = 1<<1;
+  var cirrus = 1<<2;
+  var cloud = 1<<3;
+  var shadow = 1<<4;
+  
+  var mask = qa.bitwiseAnd(dilated).eq(0)
+      .and(qa.bitwiseAnd(cirrus).eq(0))
+      .and(qa.bitwiseAnd(cloud).eq(0))
+      .and(qa.bitwiseAnd(shadow).eq(0));
+      
+  return image.updateMask(mask);
+}
+
+// Apply cloud masking function to the median composite
+var maskedComposite = cloudMask(medianComposite).blend(medianComposite34);
+var maskedComposite2 = cloudMask(medianComposite2).blend(medianComposite34);
+var maskedComposite3 = cloudMask(medianComposite3).blend(medianComposite34);
+var maskedComposite4 = cloudMask(medianComposite46).blend(medianComposite35);
+var maskedComposite5 = cloudMask(medianComposite4).blend(medianComposite35);
+var maskedComposite6 = cloudMask(medianComposite5).blend(medianComposite35);
+var maskedComposite7 = cloudMask(medianComposite6).blend(medianComposite35);
+var maskedComposite8 = cloudMask(medianComposite47).blend(medianComposite36);
+var maskedComposite9 = cloudMask(medianComposite7).blend(medianComposite36);
+var maskedComposite10 = cloudMask(medianComposite8).blend(medianComposite36);
+var maskedComposite11 = cloudMask(medianComposite9).blend(medianComposite36);
+var maskedComposite12 = cloudMask(medianComposite48).blend(medianComposite37);
+var maskedComposite13 = cloudMask(medianComposite10).blend(medianComposite37);
+var maskedComposite14 = cloudMask(medianComposite11).blend(medianComposite37);
+var maskedComposite15 = cloudMask(medianComposite12).blend(medianComposite37);
+var maskedComposite16 = cloudMask(medianComposite49).blend(medianComposite38);
+var maskedComposite17 = cloudMask(medianComposite13).blend(medianComposite38);
+var maskedComposite18 = cloudMask(medianComposite14).blend(medianComposite38);
+var maskedComposite19 = cloudMask(medianComposite15).blend(medianComposite38);
+var maskedComposite20 = cloudMask(medianComposite50).blend(medianComposite39);
+var maskedComposite21 = cloudMask(medianComposite16).blend(medianComposite39);
+var maskedComposite22 = cloudMask(medianComposite17).blend(medianComposite39);
+var maskedComposite23 = cloudMask(medianComposite18).blend(medianComposite39);
+var maskedComposite24 = cloudMask(medianComposite51).blend(medianComposite40);
+var maskedComposite25 = cloudMask(medianComposite19).blend(medianComposite40);
+var maskedComposite26 = cloudMask(medianComposite20).blend(medianComposite40);
+var maskedComposite27 = cloudMask(medianComposite21).blend(medianComposite40);
+var maskedComposite28 = cloudMask(medianComposite52).blend(medianComposite41);
+var maskedComposite29 = cloudMask(medianComposite22).blend(medianComposite41);
+var maskedComposite30 = cloudMask(medianComposite23).blend(medianComposite41);
+var maskedComposite31 = cloudMask(medianComposite24).blend(medianComposite41);
+var maskedComposite32 = cloudMask(medianComposite53).blend(medianComposite42);
+var maskedComposite33 = cloudMask(medianComposite25).blend(medianComposite42);
+var maskedComposite34 = cloudMask(medianComposite26).blend(medianComposite42);
+var maskedComposite35 = cloudMask(medianComposite27).blend(medianComposite42);
+var maskedComposite36 = cloudMask(medianComposite54).blend(medianComposite43);
+var maskedComposite37 = cloudMask(medianComposite28).blend(medianComposite43);
+var maskedComposite38 = cloudMask(medianComposite29).blend(medianComposite43);
+var maskedComposite39 = cloudMask(medianComposite30).blend(medianComposite43);
+var maskedComposite40 = cloudMask(medianComposite55).blend(medianComposite44);
+var maskedComposite41 = cloudMask(medianComposite31).blend(medianComposite44);
+var maskedComposite42 = cloudMask(medianComposite32).blend(medianComposite44);
+var maskedComposite43 = cloudMask(medianComposite33).blend(medianComposite44);
+
+
+//NDVI
+var ndvi = maskedComposite.normalizedDifference(['B4', 'B3']).rename(['ndvi_2013_1']);
+var ndvi2 = maskedComposite2.normalizedDifference(['B4', 'B3']).rename(['ndvi_2013_2']);
+var ndvi3 = maskedComposite3.normalizedDifference(['B4', 'B3']).rename(['ndvi_2013_3']);
+var ndvi4 = maskedComposite4.normalizedDifference(['B4', 'B3']).rename(['ndvi_2014_1']);
+var ndvi5 = maskedComposite5.normalizedDifference(['B4', 'B3']).rename(['ndvi_2014_2']);
+var ndvi6 = maskedComposite6.normalizedDifference(['B4', 'B3']).rename(['ndvi_2014_3']);
+var ndvi7 = maskedComposite7.normalizedDifference(['B4', 'B3']).rename(['ndvi_2014_4']);
+var ndvi8 = maskedComposite8.normalizedDifference(['B4', 'B3']).rename(['ndvi_2015_1']);
+var ndvi9 = maskedComposite9.normalizedDifference(['B4', 'B3']).rename(['ndvi_2015_2']);
+var ndvi10 = maskedComposite10.normalizedDifference(['B4', 'B3']).rename(['ndvi_2015_3']);
+var ndvi11 = maskedComposite11.normalizedDifference(['B4', 'B3']).rename(['ndvi_2015_4']);
+var ndvi12 = maskedComposite12.normalizedDifference(['B4', 'B3']).rename(['ndvi2016_1']);
+var ndvi13 = maskedComposite13.normalizedDifference(['B4', 'B3']).rename(['ndvi_2016_2']);
+var ndvi14 = maskedComposite14.normalizedDifference(['B4', 'B3']).rename(['ndvi_2016_3']);
+var ndvi15 = maskedComposite15.normalizedDifference(['B4', 'B3']).rename(['ndvi_2016_4']);
+var ndvi16 = maskedComposite16.normalizedDifference(['B4', 'B3']).rename(['ndvi_2017_1']);
+var ndvi17 = maskedComposite17.normalizedDifference(['B4', 'B3']).rename(['ndvi_2017_2']);
+var ndvi18 = maskedComposite18.normalizedDifference(['B4', 'B3']).rename(['ndvi_2017_3']);
+var ndvi19 = maskedComposite19.normalizedDifference(['B4', 'B3']).rename(['ndvi_2017_4']);
+var ndvi20 = maskedComposite20.normalizedDifference(['B4', 'B3']).rename(['ndvi_2018_1']);
+var ndvi21 = maskedComposite21.normalizedDifference(['B4', 'B3']).rename(['ndvi_2018_2']);
+var ndvi22 = maskedComposite22.normalizedDifference(['B4', 'B3']).rename(['ndvi_2018_3']);
+var ndvi23 = maskedComposite23.normalizedDifference(['B4', 'B3']).rename(['ndvi_2018_4']);
+var ndvi24 = maskedComposite24.normalizedDifference(['B4', 'B3']).rename(['ndvi_2019_1']);
+var ndvi25 = maskedComposite25.normalizedDifference(['B4', 'B3']).rename(['ndvi_2019_2']);
+var ndvi26 = maskedComposite26.normalizedDifference(['B4', 'B3']).rename(['ndvi_2019_3']);
+var ndvi27 = maskedComposite27.normalizedDifference(['B4', 'B3']).rename(['ndvi_2019_4']);
+var ndvi28 = maskedComposite28.normalizedDifference(['B4', 'B3']).rename(['ndvi_2020_1']);
+var ndvi29 = maskedComposite29.normalizedDifference(['B4', 'B3']).rename(['ndvi_2020_2']);
+var ndvi30 = maskedComposite30.normalizedDifference(['B4', 'B3']).rename(['ndvi_2020_3']);
+var ndvi31 = maskedComposite31.normalizedDifference(['B4', 'B3']).rename(['ndvi_2020_4']);
+var ndvi32 = maskedComposite32.normalizedDifference(['B4', 'B3']).rename(['ndvi_2021_1']);
+var ndvi33 = maskedComposite33.normalizedDifference(['B4', 'B3']).rename(['ndvi_2021_2']);
+var ndvi34 = maskedComposite34.normalizedDifference(['B4', 'B3']).rename(['ndvi_2021_3']);
+var ndvi35 = maskedComposite35.normalizedDifference(['B4', 'B3']).rename(['ndvi_2021_4']);
+var ndvi36 = maskedComposite36.normalizedDifference(['B4', 'B3']).rename(['ndvi_2022_1']);
+var ndvi37 = maskedComposite37.normalizedDifference(['B4', 'B3']).rename(['ndvi_2022_2']);
+var ndvi38 = maskedComposite38.normalizedDifference(['B4', 'B3']).rename(['ndvi_2022_3']);
+var ndvi39 = maskedComposite39.normalizedDifference(['B4', 'B3']).rename(['ndvi_2022_4']);
+var ndvi40 = maskedComposite40.normalizedDifference(['B4', 'B3']).rename(['ndvi_2023_1']);
+var ndvi41 = maskedComposite41.normalizedDifference(['B4', 'B3']).rename(['ndvi_2023_2']);
+var ndvi42 = maskedComposite42.normalizedDifference(['B4', 'B3']).rename(['ndvi_2023_3']);
+var ndvi43 = maskedComposite43.normalizedDifference(['B4', 'B3']).rename(['ndvi_2023_4']);
+
+
+
+var combinedImage12 = ndvi12.addBands(ndvi13).addBands(ndvi14).addBands(ndvi15).addBands(ndvi16).addBands(ndvi17).addBands(ndvi18).addBands(ndvi19).addBands(ndvi20).addBands(ndvi21).addBands(ndvi22);
+
+// Define criteria for flagging bare soil
+var criteria12 = ee.Image(0);
+
+// Apply criteria to flag bare soil
+criteria12 = combinedImage12
+  .where(ndvi12.gte(0).and(ndvi12.lte(0.22))
+  .and(ndvi13.gte(0).and(ndvi13.lte(0.22)))
+  .and(ndvi14.gte(0).and(ndvi14.lte(0.22)))
+  .and(ndvi15.gte(0).and(ndvi15.lte(0.22)))
+  .and(ndvi16.gte(0).and(ndvi16.lte(0.22)))
+  .and(ndvi17.gte(0).and(ndvi17.lte(0.22)))
+  .and(ndvi18.gte(0).and(ndvi18.lte(0.22)))
+  .and(ndvi19.gte(0).and(ndvi19.lte(0.22)))
+  .and(ndvi20.gte(0).and(ndvi20.lte(0.22)))
+  .and(ndvi21.gte(0).and(ndvi21.lte(0.22)))
+  .and(ndvi22.gte(0).and(ndvi22.lte(0.22))), 1);
+
+// Apply the criteria to the median image
+var ndvi_urban = combinedImage12.updateMask(criteria12).select('ndvi_2017_2');
+
+
+print(ndvi_urban);
+
+// Visualize the NBR2
+var visParams = {
+ min: 0,
+ max: 91,
+ //palette: ['black', 'red', 'blue', 'green']
+};
+
+
+Map.addLayer(ndvi_urban, visParams, 'Urban Area 2016');
+
+/*// Export the masked NDVI image to Google Drive
+Export.image.toDrive({
+  image: ndvi_urban,
+  description: 'Nyandarua_UrbanArea_footprint',
+  folder: 'NDVI',
+  region: geometry,
+  scale: 30
+});*/
